@@ -1,4 +1,4 @@
-document.getElementById("searchBth").addEventListener("click", function(){
+document.getElementById("searchBtn").addEventListener("click", function(){
   const getValue = document.getElementById("getValue").value;
   fetchIssues(getValue);
   const issuesList = document.getElementById('lyrics');
@@ -68,34 +68,10 @@ const getLyrics = (artist , songTitle) => {
       lssss = `Song Lyrics Not Found. Try for another song`;
     }
 
-    issuesList.innerHTML +=  `<h2 class="text-success mb-4">${songTitle} -${artist}</h2>
+    issuesList.innerHTML +=  `<h2 class="text-success mb-4">${songTitle} - <span class="artist-name">(${artist})</span></h2>
     <pre class="lyric text-white">${lssss}</pre>`
   }
 
 
 
 }
-// const getData = (name , title) => {
-//   fetch(`https://api.lyrics.ovh/v1/${name}/${title}`)
-//   .then(response => response.json())
-//   .then(json => {
-//     const store = json;
-//     console.log(store);
-    
-//   })
-//   .catch(error => console.log(error))
-// }
-// const getLyrics = (data) => {
-//   console.log(data);
-  
-//   // const ul = document.getElementById("dddd");
-//   // for (let i = 0; i <= data; i++) {
-//   //   const element = data.lyrics[i];
-//   //   console.log(element);
-    
-//   //   const li = document.createElement("li");
-//   //   li.innerText = element;
-//   //   ul.appendChild(li)
-//   // }
-  
-// }
