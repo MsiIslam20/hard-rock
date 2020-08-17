@@ -22,19 +22,22 @@ const fetchSongs = (getValue) => {
     for (let i = 0; i < 10; i++) {
       const element = data.data[i];
       const songArtist = element.artist.name;
+      const album = element.album.title;
+      const duration = element.duration;
       const songTitle = element.title;
 
-      
+      //Display Search result
       songResultArea.innerHTML += `<div class="single-result row align-items-center my-3 p-3">
                                 <div class="col-md-9">
                                 <h3 class="lyrics-name">${songTitle}</h3>
-                                <p class="author lead">Album by <span>${songArtist}</span></p>
+                                <p class="author lead">Album Name: <span>"${album}"</span</p>
+                                <p class="author lead">Artist Name: <strong>"${songArtist}"</strong></p>
+                                <p class="song-details">song duration : ${duration}s</p>
                                 </div>
                                 <div class="col-md-3 text-md-right text-center">
                                 <button data-artist="${songArtist}" data-songTitle="${songTitle}" class="btn btn-success" id="btn-lyrics">Get Lyrics</button>
                                 </div>
-                                </div>`
-                                
+                                </div>`                          
     }  
   }
 }
