@@ -19,6 +19,13 @@ body{
     border-radius: 1.5rem;
     padding: 9px 28px;
 }
+.lead{
+    margin-bottom: 6px;
+}
+.lead strong{
+    font-size: 24px;
+    color: #f3f566;
+}
 
 .btn-privious{
     background: rgba(255, 255, 255, 0.2);
@@ -39,5 +46,14 @@ body{
 .single-result{
     background: rgba(255, 255, 255, 0.2);
     border-radius: 15px;
+}
+
+.artist-name{
+    font-size: 26px;
+}
+.song-details{
+    font-weight: normal;
+    font-size:20px;
+    margin-bottom: 0;
 }
 
