@@ -1,40 +1,45 @@
+//Music Search button 
 document.getElementById("searchBtn").addEventListener("click", function(){
   const getValue = document.getElementById("getValue").value;
-  fetchIssues(getValue);
-  const issuesList = document.getElementById('lyrics');
-  issuesList.innerHTML = '';
+  fetchSongs(getValue);
+  const lyricsArea = document.getElementById('lyrics');
+  lyricsArea.innerHTML = '';
 
 })
 
-const fetchIssues = (getValue) => {
+// Get Songs from Server(API)
+const fetchSongs = (getValue) => {
 
   fetch(`https://api.lyrics.ovh/suggest/${getValue}`)
   .then(response => response.json())
-  .then(json => getResult(json))
+  .then(data => getSongsResult(data))
   .catch(error => console.log(error))
 
-  const issuesList = document.getElementById('getResult');
-  issuesList.innerHTML = '';
+  const songResultArea = document.getElementById('getResult');
+  songResultArea.innerHTML = '';
 
-  const getResult = (data) => {
+  const getSongsResult = (data) => {
     for (let i = 0; i < 10; i++) {
       const element = data.data[i];
-      const name = element.artist.name;
-      const title = element.title;
+      const songArtist = element.artist.name;
+      const songTitle = element.title;
 
       
-      issuesList.innerHTML += `<div class="single-result row align-items-center my-3 p-3">
+      songResultArea.innerHTML += `<div class="single-result row align-items-center my-3 p-3">
                                 <div class="col-md-9">
-                                <h3 class="lyrics-name">${title}</h3>
-                                <p class="author lead">Album by <span>${name}</span></p>
+                                <h3 class="lyrics-name">${songTitle}</h3>
+                                <p class="author lead">Album by <span>${songArtist}</span></p>
                                 </div>
                                 <div class="col-md-3 text-md-right text-center">
-                                <button data-artist="${name}" data-songTitle="${title}" class="btn btn-success" id="btn-lyrics">Get Lyrics</button>
+                                <button data-artist="${songArtist}" data-songTitle="${songTitle}" class="btn btn-success" id="btn-lyrics">Get Lyrics</button>
                                 </div>
                                 </div>`
                                 
     }  
-    // Get lyrics button click
+  }
+}
+
+// Get lyrics button click
 document.getElementById("getResult").addEventListener('click', e => {
   const clickedEl = e.target;
 
@@ -42,36 +47,28 @@ document.getElementById("getResult").addEventListener('click', e => {
     const artist = clickedEl.getAttribute('data-artist');
     const songTitle = clickedEl.getAttribute('data-songTitle');
 
-    getLyrics(artist, songTitle);
+    fetchLyrics(artist, songTitle);
   }
 });
-  }
-}
-
-
 
 // Get lyrics for song
-const getLyrics = (artist , songTitle) => {
+const fetchLyrics = (artist , songTitle) => {
 
   fetch(`https://api.lyrics.ovh/v1/${artist}/${songTitle}`)
   .then(response => response.json())
-  .then(json => getLyricsSingle(json))
+  .then(data => getLyrics(data))
   .catch(error => console.log(error))
 
-  const getLyricsSingle = (data) => {
-    const issuesList = document.getElementById('lyrics');
-    issuesList.innerHTML = '';
+  const getLyrics = (data) => {
+    const lyricsArea = document.getElementById('lyrics');
+    lyricsArea.innerHTML = '';
 
-    let lssss = data.lyrics;
-
-    if(lssss == undefined){
-      lssss = `Song Lyrics Not Found. Try for another song`;
+    let lyrics = data.lyrics;
+    if(lyrics == undefined){
+      lyrics = `Song Lyrics Not Found. Try for another song`;
     }
 
-    issuesList.innerHTML +=  `<h2 class="text-success mb-4">${songTitle} - <span class="artist-name">(${artist})</span></h2>
-    <pre class="lyric text-white">${lssss}</pre>`
+    lyricsArea.innerHTML +=  `<h2 class="text-success mb-4">${songTitle} - <span class="artist-name">(${artist})</span></h2>
+                              <pre class="lyric text-white">${lyrics}</pre>`
   }
-
-
-
-}
+};
