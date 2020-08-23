@@ -10,7 +10,7 @@ document.getElementById("searchBtn").addEventListener("click", function(){
 // Get Songs from Server(API)
 const fetchSongs = (getValue) => {
 
-  fetch(`https://api.lyrics.ovh/suggest/${getValue}`)
+  fetch(`https://api.lyrics.ovh/suggest/${getValue}`)   //Using lyrics.ovh for get api
   .then(response => response.json())
   .then(data => getSongsResult(data))
   .catch(error => console.log(error))
@@ -57,7 +57,7 @@ document.getElementById("getResult").addEventListener('click', e => {
 // Get lyrics for song
 const fetchLyrics = (artist , songTitle) => {
 
-  fetch(`https://api.lyrics.ovh/v1/${artist}/${songTitle}`)
+  fetch(`https://api.lyrics.ovh/v1/${artist}/${songTitle}`)  // Display lyrics Api
   .then(response => response.json())
   .then(data => getLyrics(data))
   .catch(error => console.log(error))
@@ -68,9 +68,9 @@ const fetchLyrics = (artist , songTitle) => {
 
     let lyrics = data.lyrics;
     if(lyrics == undefined){
-      lyrics = `Song Lyrics Not Found. Try for another song`;
+      lyrics = `Song Lyrics Not Found. Try for another song`; //display this if lyrics not found
     }
-
+    //Display Lyrics Search result
     lyricsArea.innerHTML +=  `<h2 class="text-success mb-4">${songTitle} - <span class="artist-name">(${artist})</span></h2>
                               <pre class="lyric text-white">${lyrics}</pre>`
   }
